@@ -1,0 +1,18 @@
+GEM
+  specs:
+    cause (0.1)
+    influxdb (0.3.11)
+      cause
+      json
+    json (2.0.2)
+    mixlib-cli (1.7.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  influxdb
+  mixlib-cli
+
+BUNDLED WITH
+   1.13.1
