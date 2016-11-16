@@ -94,6 +94,13 @@ tmp_hash = nil
 influxdb.query sql do |name, tags, points|
   tmp_hash = points[0]
 end
+
+if tmp_hash.nil?
+puts "CRITICAL; empty result, sql:#{sql}"
+exit 2
+end
+
+
 time = tmp_hash.delete('time')
 
 time_parsed = DateTime.parse(time)
