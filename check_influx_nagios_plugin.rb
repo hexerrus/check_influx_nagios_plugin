@@ -87,7 +87,8 @@ end
 influxdb = InfluxDB::Client.new cnf['database'],
   username: cnf['username'],
   password: cnf['password'],
-  host: cnf['server']
+  url: cnf['server'],
+  auth_method: cnf['auth_method']
 
 
 tmp_hash = nil
