@@ -1,0 +1,8 @@
+influx:
+  host: localhost
+  port: 8086
+  ssl: true
+  username: telegraf
+  password: password
+  database: telegraf
+
