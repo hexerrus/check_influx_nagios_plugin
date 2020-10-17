@@ -5,12 +5,16 @@ from datetime import datetime
 import dateparser
 import sys
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 def str_to_bool(value):
     if value.lower() in {'false', 'f', '0', 'no', 'n'}:
         return False
     elif value.lower() in {'true', 't', '1', 'yes', 'y'}:
         return True
-    raise ValueError(f'{value} is not a valid boolean value')
+    raise ValueError('{} is not a valid boolean value'.format(value))
+
 # parser = argparse.ArgumentParser(description='Process some integers.')
 parser = argparse.ArgumentParser()
 parser.add_argument('-C', '--config', default="/root/.influx",
@@ -60,28 +64,28 @@ diff = datetime.utcnow().replace(tzinfo=None) - event_time.replace(tzinfo=None)
 # print(diff.seconds)
 
 code = 0
-description = f"value:{value}"
+description = "value:{}".format(value)
 
 
 if args.invert == True:
     if value < args.warning:
-        description = f"{value} < {args.warning}"
+        description = "{} < {}".format(value,args.warning)
         code = 1
     if value < args.critical:
-        description = f"{value} < {args.critical}"
+        description = "{} < {}".format(value,args.critical)
         code = 2
 
 else:
     if value > args.warning:
-        description = f"{value} > {args.warning}"
+        description = "{} > {}".format(value,args.warning)
         code = 1
     if value > args.critical:
-        description = f"{value} > {args.critical}"
+        description = "{} > {}".format(value,args.critical)
         code = 2
 
 if diff.seconds > args.expired:
     code = 2
-    description = f"time too old,time: {event_time}, value:{value}"
+    description = "time too old,time: {}, value:{}".format(event_time,value)
     
 
 if code == 0:
@@ -97,5 +101,5 @@ if code == 3:
     status = "UNKNOWN"
 
 
-print(f"{status}:{description}, sql: {args.sql}")
+print("{}:{}, sql: {}".format(status,description,args.sql))
 sys.exit(code)

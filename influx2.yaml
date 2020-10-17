@@ -1,8 +1,8 @@
 influx:
-  host: localhost
-  port: 8086
+  host: influx
+  port: 8087
   ssl: true
   username: telegraf
   password: password
   database: telegraf
-
+#  auth_method: basic_auth
